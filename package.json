@@ -1,0 +1,25 @@
+{
+  "name": "ticket-tasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.5.2",
+    "commander": "^2.17.1",
+    "promptly": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicogreenarry/ticket-tasks.git"
+  },
+  "author": "Nico Greenarry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicogreenarry/ticket-tasks/issues"
+  },
+  "homepage": "https://github.com/nicogreenarry/ticket-tasks#readme"
+}
