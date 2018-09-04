@@ -22,6 +22,10 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Create sticky for eng standup',
     },
     {
+      test: ({feature}) => feature,
+      message: 'Make sure relevant stakeholders are looped in (e.g. Vijay for FTW work)',
+    },
+    {
       test: ({ui}) => ui,
       message: 'Create several versions of mockups for the thing I’m building',
     },
