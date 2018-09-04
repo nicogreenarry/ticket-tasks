@@ -8,6 +8,13 @@ const main = bluebird.coroutine(function* (cli) {
     hi: 'https://github.com/captain401/provider',
   };
 
+  const genericTasks = [
+    {
+      message: 'Anything about this to discuss with team (e.g. at Retro/IPM/ARB)? Consider at' +
+        ' the beginning of work, but don\'t close task until finishing',
+    }
+  ];
+
   // Ticket tasks (pivotal or jira; not PR)
   const ticketTasks = [
     // PREWORK
@@ -133,7 +140,8 @@ const main = bluebird.coroutine(function* (cli) {
         'if appropriate',
     },
     {
-      message: 'Report out about this? See checklist (link to checklist?)',
+      message: 'Report out about this? See checklist (link to checklist?). Post high-level status update somewhere,' +
+        ' e.g. to slack channel?',
     },
   ];
 
@@ -241,6 +249,10 @@ const main = bluebird.coroutine(function* (cli) {
         '[production](https://github.com/captain401/provider/commits/production))',
     },
     {
+      message: 'For package repos: bump version number in package repo package.json;' +
+        ' Create release once merged; create PR in provider that bumps package number',
+    },
+    {
       test: ({chore, style}) => !chore && !style,
       message: 'Deploy the code (to production, master, or a staging branch, for hotfixes, ' +
         'quick wins, and epic stories, respectively)',
@@ -278,6 +290,7 @@ Just style fixes.`,
 
   console.log('Task templates: https://github.com/nicogreenarry/ticket-tasks');
 
+  // ASK RELEVANT QUESTIONS IF USER DIDN'T SUPPLY ENOUGH FLAGS
   if (!cli.git && !cli.hi) {
     const response = yield promptly.prompt('Is this work for Human Interest (hi) or Get In Touch (git)? [hi]', {
       default: 'hi',
@@ -335,7 +348,8 @@ Just style fixes.`,
     cli.ui = response === 'y';
   }
 
-  const tasks = cli.pr ? prTasks : ticketTasks;
+  // PRINT OUT THE RELEVANT TASKS
+  const tasks = genericTasks.concat(cli.pr ? prTasks : ticketTasks);
   let prefix = '';
   if (cli.pr) {
     prefix = '* [ ] ';
