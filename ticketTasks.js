@@ -117,16 +117,16 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({fix}) => fix,
       message: 'Whom did this bug/issue/etc. affect? Even after fixing the issue, what do we need to do to address ' +
         'those problems? Even in the case of proactive fixes, think about taking retroactive action on ' +
-        'people/companies/etc. whom this change won\'t automatically affect, but should.'
+        'people/companies/etc. whom this change won\'t automatically affect, but should.',
     },
     {
       test: ({fix}) => fix,
-      message: 'Resolve any related rollbars (see Jira integration and comments)'
+      message: 'Resolve any related rollbars (see Jira integration and comments)',
     },
     {
       test: ({fix}) => !fix,
       message: 'Take retroactive action on people/companies/etc. whom this change won\'t automatically affect, but' +
-        ' should.'
+        ' should.',
     },
     {
       test: ({chore}) => !chore,
