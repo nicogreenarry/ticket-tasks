@@ -393,7 +393,7 @@ if (require.main === module) {
     .option('--pr', 'Pull Request') // cli.pr
 
     // Other flags
-    .option('-u, --ui', 'Whether there is any UI work involved') // cli.ui
+    .option('-u, --ui [ui]', 'Whether there is any UI work involved') // cli.ui
 
     .parse(process.argv);
 
