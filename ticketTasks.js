@@ -59,10 +59,6 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({chore}) => !chore,
-      message: 'Do manual testing; record my steps',
-    },
-    {
-      test: ({chore}) => !chore,
       message: ({hi}) => `Test against expected edge cases (ultimately create a doc with examples of common edge cases${
         hi 
           ? ', e.g. for users, try regular users, admins, external admins, document signers, internal users, and ' +
@@ -167,6 +163,14 @@ const main = bluebird.coroutine(function* (cli) {
     {
       test: ({ui}) => ui,
       message: 'JSX/TSX: Resolve any warnings/errors in the browser console',
+    },
+    {
+      test: ({chore}) => !chore,
+      message: 'Do manual testing; record my steps',
+    },
+    {
+      test: ({chore}) => !chore,
+      message: 'Add automated tests',
     },
     {
       test: ({style}) => !style,
