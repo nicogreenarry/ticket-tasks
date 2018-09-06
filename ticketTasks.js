@@ -189,26 +189,26 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Request review for PR',
     },
     {
-      test: ({hi, pivotal}) => hi && pivotal,
+      test: ({hi, pivotal, pr}) => hi && pivotal && pr,
       message: 'Add a blocker in this ticket linking the reviewer: @USERNAME review' +
         ` [PR _____](${repo.hi}/pull/_____)`,
     },
     {
-      test: ({hi, pivotal}) => hi && pivotal,
+      test: ({hi, pivotal, pr}) => hi && pivotal && pr,
       message: 'Move this into the Pivotal task: PR: Follow through to get approval for ' +
       `[PR ___](${repo.hi}/pull/___), and complete all tasks on PR`,
     },
     {
-      test: ({hi, pivotal}) => hi && pivotal,
+      test: ({hi, pivotal, pr}) => hi && pivotal && pr,
       message: 'Resolve the blocker for the PR reviewer',
     },
     {
-      test: ({hi, jira}) => hi && jira,
+      test: ({hi, jira, pr}) => hi && jira && pr,
       message: 'Move this into the Jira ticket: PR: Follow through to get approval for ' +
         `[PR ___|${repo.hi}/pull/___], and complete all tasks on PR`,
     },
     {
-      test: ({jira, pivotal}) => !jira && !pivotal,
+      test: ({jira, pivotal, pr}) => !(jira || pivotal) && pr,
       message: ({hi}) => 'Create this Todoist task: Style improvements PR: Follow through to get approval' +
         ` for [PR ___](${hi ? repo.hi : repo.git}/pull/___), and complete all tasks` +
         ' on PR #work p1 tomorrow',
