@@ -165,11 +165,11 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'JSX/TSX: Resolve any warnings/errors in the browser console',
     },
     {
-      test: ({chore}) => !chore,
+      test: ({chore, style}) => !(chore || style),
       message: 'Do manual testing; record my steps',
     },
     {
-      test: ({chore}) => !chore,
+      test: ({chore, style}) => !(chore || style),
       message: 'Add automated tests',
     },
     {
@@ -257,6 +257,7 @@ const main = bluebird.coroutine(function* (cli) {
         '[production](https://github.com/captain401/provider/commits/production))',
     },
     {
+      test: ({chore, style}) => !chore && !style,
       message: 'For package repos: bump version number in package repo package.json;' +
         ' Create release once merged; create PR in provider that bumps package number',
     },
@@ -277,6 +278,7 @@ const main = bluebird.coroutine(function* (cli) {
         ' name them the same as the main screen with an appended A (e.g. 00A.png for a summary screen change)',
     },
     {
+      test: ({style}) => !style,
       message: 'Record in CMD, MILO notes, as Retro/Stand-up/etc. sticky?',
     },
     {
