@@ -106,7 +106,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Create ticket(s) for any unfinished spec, including Bonus spec',
     },
     {
-      test: ({chore}) => !chore,
+      test: ({chore, git}) => !chore && !git,
       message: 'Pre-acceptance testing on staging: Write a comment, "@REQUESTER, this is ready for pre-acceptance' +
         ' testing on staging; see PR_URL for the staging url. You can test it by STEPS_TO_TEST". Create a blocker' +
         ' labeling requester: "@REQUESTER pre-acceptance test ticket per comment". OR if it\'s something that can\'t ' +
@@ -218,13 +218,13 @@ const main = bluebird.coroutine(function* (cli) {
         'with them',
     },
     {
-      test: ({chore, style}) => !chore && !style,
+      test: ({chore, git, style}) => !chore && !git && !style,
       message: 'Wait for pre-acceptance testing on staging before merging. If no pre-acceptance testing required, at' +
         ' least get approval from relevant stakeholder(s) before merging PR (if this is merging into an epic/release' +
         ' branch, move this task into the Epic meta ticket',
     },
     {
-      test: ({chore, style}) => !chore && !style,
+      test: ({chore, git, style}) => !chore && !git && !style,
       message: 'Pre-merge, on staging: as an engineer, perform final acceptance testing on the deployed version of' +
         ' the code',
     },
