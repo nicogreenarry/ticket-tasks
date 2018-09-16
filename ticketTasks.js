@@ -252,6 +252,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Delete local/remote branches',
     },
     {
+      test: ({hi}) => hi,
       message: 'Make sure tests pass after merging into the terminal branch ' +
         '([master](https://github.com/captain401/provider/commits/master), ' +
         '[production](https://github.com/captain401/provider/commits/production))',
@@ -271,7 +272,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'As an engineer, perform final acceptance testing on the deployed version of the code',
     },
     {
-      test: ({ui}) => ui,
+      test: ({hi, ui}) => hi && ui,
       message: 'Take screenshots of various UI states and add them to ' +
         '[our design repo](https://github.com/captain401/design) (`cd dev/design`), and probably to PR description' +
         ' (or as comments if there are a lot of them). If they\'re just a small change to a page (adding a button),' +
