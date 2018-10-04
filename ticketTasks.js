@@ -265,13 +265,13 @@ const main = bluebird.coroutine(function* (cli) {
     {
       test: ({chore, style}) => !chore && !style,
       message: 'For package repos: ' +
-        '1. In package repo:' +
-        '1a. Bump version number in package.json;' +
-        '1b. Run `npm i` to bump version in package-lock;' +
-        '1c. Create release once PR is merged;' +
-        '2. In provider:' +
-        '2a. Create PR in provider that bumps package number;' +
-        '2b. Run `npm i` to bump version in package-lock;' +
+        '1. In package repo: ' +
+        '1a. Bump version number in package.json; ' +
+        '1b. Run `npm i` to bump version in package-lock; ' +
+        '1c. Create release once PR is merged; ' +
+        '2. In provider: ' +
+        '2a. Create PR in provider that bumps package number; ' +
+        '2b. Run `npm i` to bump version in package-lock; ' +
         '2c. Create PR, wait for tests to pass, and merge it. (No need for review.)',
     },
     {
