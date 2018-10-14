@@ -19,10 +19,11 @@ const main = bluebird.coroutine(function* (cli) {
   const ticketTasks = [
     // PREWORK
     {
+      test: ({hi}) => hi,
       message: 'Create sticky for eng standup',
     },
     {
-      test: ({feature}) => feature,
+      test: ({feature, hi}) => feature && hi,
       message: 'Make sure relevant stakeholders are looped in (e.g. Vijay for FTW work)',
     },
     {
