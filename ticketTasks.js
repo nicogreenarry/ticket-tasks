@@ -168,8 +168,8 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'JSX/TSX: Resolve any warnings/errors in the browser console',
     },
     {
-      test: ({chore, style}) => !(chore || style),
-      message: 'Do manual testing; record my steps',
+      test: ({style}) => !style,
+      message: 'Do manual testing; record my steps. Even for chores, at least deploy app locally',
     },
     {
       test: ({chore, style}) => !(chore || style),
