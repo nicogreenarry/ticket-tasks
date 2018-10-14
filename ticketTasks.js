@@ -348,7 +348,7 @@ Suggestions for reviewing style-fix PRs:
   }
 
   if (!cli.jira && !cli.pivotal && !cli.pr) {
-    const response = yield promptly.prompt('What type of work is this? jira, pivotal, pr? [pivotal]', {
+    const response = yield promptly.prompt('Where does the ticket/task live? jira, pivotal, pr? [pivotal]', {
       default: 'pivotal',
       validator(value) {
         if (['jira', 'pivotal', 'pr'].includes(value)) {
