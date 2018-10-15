@@ -11,7 +11,7 @@ const main = bluebird.coroutine(function* (cli) {
   const genericTasks = [
     {
       message: 'Anything about this to discuss with team (e.g. at Retro/IPM/ARB)? Consider at' +
-        ' the beginning of work, but don\'t close task until finishing',
+        ' the beginning of work, but don’t close task until finishing',
     }
   ];
 
@@ -52,7 +52,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       message: ({chore}) => chore
-        ? 'Write tests? Probably only if it\'s a critical piece of code that isn\'t well tested.'
+        ? 'Write tests? Probably only if it’s a critical piece of code that isn’t well tested.'
         : 'Write automated tests',
     },
     {
@@ -83,7 +83,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({chore}) => !chore,
-      message: 'Develop metrics/etc. to verify it\'s working on an ongoing basis, and make sure we know if it stops' +
+      message: 'Develop metrics/etc. to verify it’s working on an ongoing basis, and make sure we know if it stops' +
         ' working',
     },
     {
@@ -107,29 +107,28 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({chore, git}) => !chore && !git,
       message: 'Pre-acceptance testing on staging: Write a comment, "@REQUESTER, this is ready for pre-acceptance' +
         ' testing on staging; see PR_URL for the staging url. You can test it by STEPS_TO_TEST". Create a blocker' +
-        ' labeling requester: "@REQUESTER pre-acceptance test ticket per comment". OR if it\'s something that can\'t ' +
+        ' labeling requester: "@REQUESTER pre-acceptance test ticket per comment". OR if it’s something that can’t ' +
         'be tested easily on staging, consider one of these comments: "@REQUESTER, this is ready for a pre-acceptance' +
-        ' test. I\'ll have to demo it for you on my machine - can you let me know when might be a good time?"',
+        ' test. I’ll have to demo it for you on my machine - can you let me know when might be a good time?"',
     },
     {
-      test: ({fix}) => fix,
-      message: 'Whom did this bug/issue/etc. affect? Even after fixing the issue, what do we need to do to address ' +
-        'those problems? Even in the case of proactive fixes, think about taking retroactive action on ' +
-        'people/companies/etc. whom this change won\'t automatically affect, but should.',
+      message: ({fix, hi}) => {
+        const entities = hi ? 'people/companies/etc.' : 'users/contacts/stories/etc.';
+        return fix
+          ? 'Whom did this bug/issue/etc. affect? Even after fixing the issue, what do we need to do to address '
+            + 'those problems? Even in the case of proactive fixes, think about taking retroactive action on '
+            + `${entities} whom this change won’t automatically affect, but should.`
+          : `Take retroactive action on ${entities} whom this change won’t automatically affect, but should.`;
+      },
     },
     {
       test: ({fix}) => fix,
       message: 'Resolve any related rollbars (see Jira integration and comments)',
     },
     {
-      test: ({fix}) => !fix,
-      message: 'Take retroactive action on people/companies/etc. whom this change won\'t automatically affect, but' +
-        ' should.',
-    },
-    {
       test: ({chore}) => !chore,
       message: 'Post-deploy Acceptance testing. Comment with testing procedures, and create blocker. Indicate whether' +
-      ' tester should Accept/Resolve ticket when they\'re satisfied.',
+      ' tester should Accept/Resolve ticket when they’re satisfied.',
     },
     {
       test: ({git}) => git,
@@ -154,10 +153,10 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
-      message: 'Assign PR to myself (and to colleague if I\'m pairing)',
+      message: 'Assign PR to myself (and to colleague if I’m pairing)',
     },
     {
-      message: 'Open circleCI tabs so I\'ll immediately be notified of test failures',
+      message: 'Open circleCI tabs so I’ll immediately be notified of test failures',
     },
     {
       test: ({chore, fix}) => chore || fix,
@@ -179,7 +178,7 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({style}) => !style,
       message: 'Review: Search "files changed" in PR, and deal with or get rid of each ASSUMPTION, TODO, FIXME, HACK,' +
         ' and console. First, make sure the page is refreshed, and that all "Load Diff" files are expanded (well' +
-        ' except for `package-lock`). If there are instances I added/changed and won\'t remove, consider commenting' +
+        ' except for `package-lock`). If there are instances I added/changed and won’t remove, consider commenting' +
         ' on them (in code or in the PR) to explain them. TODO: Replace with something like this (use a regex for' +
         ' case insensitivity?): `git diff master | grep "console.log"`',
     },
@@ -217,7 +216,7 @@ const main = bluebird.coroutine(function* (cli) {
         ' on PR #work p1 tomorrow',
     },
     {
-      message: 'Check for any `git stash` entries that are relevant; delete them once I\'m done ' +
+      message: 'Check for any `git stash` entries that are relevant; delete them once I’m done ' +
         'with them',
     },
     {
@@ -236,7 +235,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Wait for reviewer approval, and for tests to pass on final commit, before merging',
     },
     {
-      message: 'Make sure I don\'t have changes I didn\'t push (e.g. responding to PR comments)',
+      message: 'Make sure I don’t have changes I didn’t push (e.g. responding to PR comments)',
     },
 
     // AFTER MERGE
@@ -285,7 +284,7 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({hi, ui}) => hi && ui,
       message: 'Take screenshots of various UI states and add them to ' +
         '[our design repo](https://github.com/captain401/design) (`cd dev/design`), and probably to PR description' +
-        ' (or as comments if there are a lot of them). If they\'re just a small change to a page (adding a button),' +
+        ' (or as comments if there are a lot of them). If they’re just a small change to a page (adding a button),' +
         ' name them the same as the main screen with an appended A (e.g. 00A.png for a summary screen change)',
     },
     {
