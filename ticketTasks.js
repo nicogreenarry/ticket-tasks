@@ -199,18 +199,16 @@ const main = bluebird.coroutine(function* (cli) {
         ` [PR _____](${repo.hi}/pull/_____)`,
     },
     {
-      test: ({hi, pivotal, pr}) => hi && pivotal && pr,
-      message: 'Move this into the Pivotal task: PR: Follow through to get approval for ' +
-      `[PR ___](${repo.hi}/pull/___), and complete all tasks on PR`,
+      test: ({pr}) => pr,
+      message: ({hi, pivotal}) => pivotal
+        ? 'Move this into the Pivotal task: PR: Follow through to get approval for '
+          + `[PR ___](${repo.hi}/pull/___), and complete all tasks on PR`
+        : 'Move this into the Jira ticket: PR: Follow through to get approval for '
+          + `[PR ___|${repo[hi ? 'hi' : 'git']}/pull/___], and complete all tasks on PR`,
     },
     {
       test: ({hi, pivotal, pr}) => hi && pivotal && pr,
       message: 'Resolve the blocker for the PR reviewer',
-    },
-    {
-      test: ({hi, jira, pr}) => hi && jira && pr,
-      message: 'Move this into the Jira ticket: PR: Follow through to get approval for ' +
-        `[PR ___|${repo.hi}/pull/___], and complete all tasks on PR`,
     },
     {
       test: ({jira, pivotal, pr}) => !(jira || pivotal) && pr,
