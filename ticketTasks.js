@@ -4,7 +4,7 @@ const promptly = require('promptly');
 
 const main = bluebird.coroutine(function* (cli) {
   const repo = {
-    git: 'https://github.com/nicogreenarry/get-in-touch',
+    git: 'https://github.com/nicogreenarry/git',
     hi: 'https://github.com/captain401/provider',
   };
 
@@ -159,9 +159,6 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Open circleCI tabs so I’ll immediately be notified of test failures',
     },
     {
-      message: 'Add PR link to originating ticket',
-    },
-    {
       test: ({chore, fix}) => chore || fix,
       message: 'Add Hotfix label to PR?',
     },
@@ -199,22 +196,25 @@ const main = bluebird.coroutine(function* (cli) {
         ` [PR _____](${repo.hi}/pull/_____)`,
     },
     {
-      test: ({pr}) => pr,
-      message: ({hi, pivotal}) => pivotal
-        ? 'Move this into the Pivotal task: PR: Follow through to get approval for '
-          + `[PR ___](${repo.hi}/pull/___), and complete all tasks on PR`
-        : 'Move this into the Jira ticket: PR: Follow through to get approval for '
-          + `[PR ___|${repo[hi ? 'hi' : 'git']}/pull/___], and complete all tasks on PR`,
+      test: ({jira, pivotal, pr}) => pr && (jira || pivotal),
+      message: ({hi, pivotal}) => {
+        const relevantRepo = repo[hi ? 'hi' : 'git'];
+        const ticketSource = pivotal ? 'Pivotal' : 'Jira';
+        const linkMarkdown = pivotal ? `[PR ___](${relevantRepo}/pull/___)` : `[PR ___|${relevantRepo}/pull/___]`;
+        return `Move this into the ${ticketSource} task: PR: Follow through to get approval for ${
+          linkMarkdown
+        }, and complete all tasks on PR`;
+      },
+    },
+    {
+      test: ({jira, pivotal, pr}) => !(jira || pivotal) && pr,
+      message: ({hi}) => 'Create this Todoist task: PR: Follow through to get approval' +
+        ` for [PR ___](${hi ? repo.hi : repo.git}/pull/___), and complete all tasks` +
+        ' on PR #work p1 tomorrow',
     },
     {
       test: ({hi, pivotal, pr}) => hi && pivotal && pr,
       message: 'Resolve the blocker for the PR reviewer',
-    },
-    {
-      test: ({jira, pivotal, pr}) => !(jira || pivotal) && pr,
-      message: ({hi}) => 'Create this Todoist task: Style improvements PR: Follow through to get approval' +
-        ` for [PR ___](${hi ? repo.hi : repo.git}/pull/___), and complete all tasks` +
-        ' on PR #work p1 tomorrow',
     },
     {
       message: 'Check for any `git stash` entries that are relevant; delete them once I’m done ' +
