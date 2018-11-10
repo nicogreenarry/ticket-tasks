@@ -262,18 +262,6 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({chore, style}) => !chore && !style,
-      message: 'For package repos: ' +
-        '1. In package repo: ' +
-        '1a. Bump version number in package.json; ' +
-        '1b. Run `npm i` to bump version in package-lock; ' +
-        '1c. Create release once PR is merged; ' +
-        '2. In provider: ' +
-        '2a. Create PR in provider that bumps package number; ' +
-        '2b. Run `npm i` to bump version in package-lock; ' +
-        '2c. Create PR, wait for tests to pass, and merge it. (No need for review.)',
-    },
-    {
-      test: ({chore, style}) => !chore && !style,
       message: 'Deploy the code (to production, master, or a staging branch, for hotfixes, ' +
         'quick wins, and epic stories, respectively)',
     },
@@ -316,7 +304,7 @@ Suggestions for reviewing style-fix PRs:
     },
   ];
 
-  console.log('Task templates: https://github.com/nicogreenarry/ticket-tasks');
+  console.log('Task templates: https://github.com/nicogreenarry/ticket-tasks/edit/master/ticketTasks.js');
 
   // ASK RELEVANT QUESTIONS IF USER DIDN'T SUPPLY ENOUGH FLAGS
   if (!cli.git && !cli.hi) {
