@@ -10,6 +10,7 @@ const main = bluebird.coroutine(function* (cli) {
 
   const genericTasks = [
     {
+      test: ({hi}) => hi,
       message: 'Anything about this to discuss with team (e.g. at Retro/IPM/ARB)? Consider at' +
         ' the beginning of work, but don’t close task until finishing',
     }
@@ -51,6 +52,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Grep the codebase for the ticket number to find other code that needs to be updated',
     },
     {
+      test: ({hi}) => hi,
       message: ({chore}) => chore
         ? 'Write tests? Probably only if it’s a critical piece of code that isn’t well tested.'
         : 'Write automated tests',
@@ -87,7 +89,7 @@ const main = bluebird.coroutine(function* (cli) {
         ' working',
     },
     {
-      test: ({chore}) => !chore,
+      test: ({chore, hi}) => hi && !chore,
       message: 'PII: Delete any PII-ful data saved in Downloads folder; refresh scrubbed local db if my db has PII',
     },
     {
@@ -156,6 +158,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Assign PR to myself (and to colleague if I’m pairing)',
     },
     {
+      test: ({hi}) => hi,
       message: 'Open circleCI tabs so I’ll immediately be notified of test failures',
     },
     {
@@ -171,7 +174,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Do manual testing; record my steps. Even for chores, at least deploy app locally',
     },
     {
-      test: ({chore, style}) => !(chore || style),
+      test: ({chore, hi, style}) => hi && !(chore || style),
       message: 'Add automated tests',
     },
     {
@@ -277,7 +280,7 @@ const main = bluebird.coroutine(function* (cli) {
         ' name them the same as the main screen with an appended A (e.g. 00A.png for a summary screen change)',
     },
     {
-      test: ({style}) => !style,
+      test: ({hi, style}) => hi && !style,
       message: 'Record in CMD, MILO notes, as Retro/Stand-up/etc. sticky?',
     },
     {
