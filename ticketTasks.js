@@ -20,10 +20,6 @@ const main = bluebird.coroutine(function* (cli) {
   const ticketTasks = [
     // PREWORK
     {
-      test: ({hi}) => hi,
-      message: 'Create sticky for eng standup',
-    },
-    {
       test: ({feature, hi}) => feature && hi,
       message: 'Make sure relevant stakeholders are looped in (e.g. Vijay for FTW work)',
     },
@@ -281,7 +277,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({hi, style}) => hi && !style,
-      message: 'Record in CMD, MILO notes, as Retro/Stand-up/etc. sticky?',
+      message: 'Record in CMD, MILO notes, as Retro/etc. sticky?',
     },
     {
       test: ({feature, pivotal}) => feature && pivotal,
