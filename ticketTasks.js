@@ -221,14 +221,14 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({chore, git, style}) => !chore && !git && !style,
-      message: 'Wait for pre-acceptance testing on staging before merging. If no pre-acceptance testing required, at' +
-        ' least get approval from relevant stakeholder(s) before merging PR (if this is merging into an epic/release' +
-        ' branch, move this task into the Epic meta ticket',
+      message: 'Pre-merge, on staging: as an engineer, perform final acceptance testing on the deployed version of' +
+        ' the code',
     },
     {
       test: ({chore, git, style}) => !chore && !git && !style,
-      message: 'Pre-merge, on staging: as an engineer, perform final acceptance testing on the deployed version of' +
-        ' the code',
+      message: 'Wait for pre-acceptance testing on staging before merging. If no pre-acceptance testing required, at' +
+        ' least get approval from relevant stakeholder(s) before merging PR (if this is merging into an epic/release' +
+        ' branch, move this task into the Epic meta ticket',
     },
     {
       test: ({hi}) => hi,
