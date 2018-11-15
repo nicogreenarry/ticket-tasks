@@ -151,7 +151,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
-      message: 'Assign PR to myself (and to colleague if I’m pairing)',
+      message: ({hi}) => `Assign PR to myself ${hi ? '(and to colleague if I’m pairing)' : ''}`,
     },
     {
       test: ({hi}) => hi,
