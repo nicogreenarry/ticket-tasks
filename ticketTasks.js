@@ -42,6 +42,14 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'If there’s discussion about this outside of the ticket (e.g. in slack), link from the ticket to that ' +
         'location(s), and vice versa',
     },
+    {
+      message: 'If there will be testing on staging, it’s worth pushing and creating a PR before writing automated ' + 
+        'tests, so I can start the ball rolling on pre-merge acceptance testing.',
+    },
+    {
+      message: 'If timing will be tight, it might be worth creating a PR and getting code review before I start/finish' + 
+        ' writing tests.',
+    },
 
     // WORK
     {
@@ -348,7 +356,7 @@ Suggestions for reviewing style-fix PRs:
   // If I enter either `--ui` or `--ui false`, cli.ui will be truthy; I need to change it to
   // true/false based on which value it is.
   if (cli.ui) {
-    cli.ui = cli.ui === true;
+    cli.ui = [true, 'true'].includes(cli.ui); // `--ui` and `--ui true` both mean "yes, UI"
   } else {
     // If I didn't use the ui flag at all, ask about it
     const response = yield promptly.prompt('Does this work involve any UI work (y/n)? [n]', {
