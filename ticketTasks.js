@@ -184,10 +184,9 @@ const main = bluebird.coroutine(function* (cli) {
     {
       test: ({style}) => !style,
       message: 'Review: Search "files changed" in PR, and deal with or get rid of each ASSUMPTION, TODO, FIXME, HACK,' +
-        ' and console. First, make sure the page is refreshed, and that all "Load Diff" files are expanded (well' +
-        ' except for `package-lock`). If there are instances I added/changed and won’t remove, consider commenting' +
-        ' on them (in code or in the PR) to explain them. TODO: Replace with something like this (use a regex for' +
-        ' case insensitivity?): `git diff master | grep "console.log"`',
+        ' and console. First, make sure the page is refreshed, and that all "Load Diff" files are expanded ' +
+        '(except for `package-lock`). If there are instances I added/changed and won’t remove, consider commenting' +
+        ' on them (in code or in the PR) to explain them.',
     },
     {
       test: ({style}) => !style,
