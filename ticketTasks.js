@@ -159,6 +159,9 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
+      message: 'Add acceptance testing procedures in `docs/eng_process/acceptance_tests_log.md`',
+    },
+    {
       message: ({hi}) => `Assign PR to myself ${hi ? '(and to colleague if I’m pairing)' : ''}`,
     },
     {
