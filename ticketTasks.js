@@ -276,7 +276,8 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({chore, style}) => !chore && !style,
-      message: 'As an engineer, perform final acceptance testing on the deployed version of the code',
+      message: 'As an engineer, perform final acceptance testing on the deployed version of the code, per the ' +
+        'acceptance testing steps in the Acceptance Testing log',
     },
     {
       test: ({hi, ui}) => hi && ui,
