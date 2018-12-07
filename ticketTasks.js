@@ -56,13 +56,12 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Grep the codebase for the ticket number to find other code that needs to be updated',
     },
     {
-      test: ({hi}) => hi,
       message: ({chore}) => chore
         ? 'Write tests? Probably only if it’s a critical piece of code that isn’t well tested.'
         : 'Write automated tests',
     },
     {
-      test: ({chore}) => !chore,
+      test: ({feature, fix}) => feature || fix,
       message: ({hi}) => `Test against expected edge cases (ultimately create a doc with examples of common edge cases${
         hi 
           ? ', e.g. for users, try regular users, admins, external admins, document signers, internal users, and ' +
@@ -83,17 +82,17 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Deploy it',
     },
     {
-      test: ({chore}) => !chore,
+      test: ({feature, fix}) => feature || fix,
       message: 'If relevant, once deployed, run the entire task / go through the entire process / etc. during the' +
         ' working day, in order to catch and debug errors while things are still fresh.',
     },
     {
-      test: ({chore}) => !chore,
+      test: ({feature, fix}) => feature || fix,
       message: 'Develop metrics/etc. to verify it’s working on an ongoing basis, and make sure we know if it stops' +
         ' working',
     },
     {
-      test: ({chore, hi}) => hi && !chore,
+      test: ({feature, fix, hi}) => hi && (feature || fix),
       message: 'PII: Delete any PII-ful data saved in Downloads folder; refresh scrubbed local db if my db has PII',
     },
     {
@@ -110,7 +109,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Create ticket(s) for any unfinished spec, including Bonus spec',
     },
     {
-      test: ({chore, git}) => !chore && !git,
+      test: ({feature, fix}) => feature || fix,
       message: 'Pre-acceptance testing on staging: Write a comment, "@REQUESTER, this is ready for pre-acceptance' +
         ' testing on staging; see PR_URL for the staging url. You can test it by STEPS_TO_TEST". Create a blocker' +
         ' labeling requester: "@REQUESTER pre-acceptance test ticket per comment". OR if it’s something that can’t ' +
@@ -132,7 +131,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Resolve any related rollbars (see Jira integration and comments)',
     },
     {
-      test: ({chore}) => !chore,
+      test: ({feature, fix}) => feature || fix,
       message: 'Post-deploy Acceptance testing. Comment with testing procedures, and create blocker. Indicate whether' +
       ' tester should Accept/Resolve ticket when they’re satisfied.',
     },
@@ -235,7 +234,7 @@ const main = bluebird.coroutine(function* (cli) {
         ' the code',
     },
     {
-      test: ({chore, git, style}) => !chore && !git && !style,
+      test: ({feature, fix}) => feature || fix,
       message: 'Wait for pre-acceptance testing on staging before merging. If no pre-acceptance testing required, at' +
         ' least get approval from relevant stakeholder(s) before merging PR (if this is merging into an epic/release' +
         ' branch, move this task into the Epic meta ticket',
@@ -270,12 +269,12 @@ const main = bluebird.coroutine(function* (cli) {
         '[production](https://github.com/captain401/provider/commits/production))',
     },
     {
-      test: ({chore, style}) => !chore && !style,
+      test: ({feature, fix}) => feature || fix,
       message: 'Deploy the code (to production, master, or a staging branch, for hotfixes, ' +
         'quick wins, and epic stories, respectively)',
     },
     {
-      test: ({chore, style}) => !chore && !style,
+      test: ({feature, fix}) => feature || fix,
       message: 'As an engineer, perform final acceptance testing on the deployed version of the code, per the ' +
         'acceptance testing steps in the Acceptance Testing log',
     },
