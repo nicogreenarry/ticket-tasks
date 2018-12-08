@@ -10,7 +10,10 @@ const main = bluebird.coroutine(function* (cli) {
     hi: 'https://github.com/captain401/provider',
   };
 
-  const hasGitTeam = cli.hasGitTeam === undefined ? hasGitTeamDefault : cli.hasGitTeam;
+  // If gitTeam parameter was passed, use its value (`true` or `"true"` vs. 'false'). Otherwise, use hasGitTeamDefault.
+  const hasGitTeam = cli.gitTeam === undefined
+    ? hasGitTeamDefault
+    : [true, 'true'].includes(cli.gitTeam);
 
   const genericTasks = [
     {
@@ -411,6 +414,7 @@ if (require.main === module) {
 
     // Other flags
     .option('-u, --ui [ui]', 'Whether there is any UI work involved') // cli.ui
+    .option('--git-team [gitTeam]', 'Whether there are GIT team members, e.g. for reviewing PRs') // cli.gitTeam
 
     .parse(process.argv);
 
