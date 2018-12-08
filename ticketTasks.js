@@ -2,15 +2,19 @@ const bluebird = require('bluebird');
 const cli = require('commander');
 const promptly = require('promptly');
 
+const hasGitTeamDefault = true; // Can be overruled by script parameter
+
 const main = bluebird.coroutine(function* (cli) {
   const repo = {
     git: 'https://github.com/nicogreenarry/git',
     hi: 'https://github.com/captain401/provider',
   };
 
+  const hasGitTeam = cli.hasGitTeam === undefined ? hasGitTeamDefault : cli.hasGitTeam;
+
   const genericTasks = [
     {
-      test: ({hi}) => hi,
+      test: ({git, hi}) => hi || git && hasGitTeam,
       message: 'Anything about this to discuss with team (e.g. at Retro/IPM/ARB)? Consider at' +
         ' the beginning of work, but don’t close task until finishing',
     }
@@ -161,9 +165,6 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Add acceptance testing procedures in `docs/eng_process/acceptance_tests_log.md`',
     },
     {
-      message: ({hi}) => `Assign PR to myself ${hi ? '(and to colleague if I’m pairing)' : ''}`,
-    },
-    {
       test: ({hi}) => hi,
       message: 'Open circleCI tabs so I’ll immediately be notified of test failures',
     },
@@ -195,11 +196,10 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Update the "Changes here include..." and "Tests" sections of the PR description',
     },
     {
-      test: ({hi}) => hi,
       message: 'Request review for PR',
     },
     {
-      test: ({hi, pivotal, pr}) => hi && pivotal && pr,
+      test: ({git, hi, pivotal, pr}) => pivotal && pr && (hi || git && hasGitTeam),
       message: 'Add a blocker in this ticket linking the reviewer: @USERNAME review' +
         ` [PR _____](${repo.hi}/pull/_____)`,
     },
@@ -221,7 +221,7 @@ const main = bluebird.coroutine(function* (cli) {
         ' on PR #work p1 tomorrow',
     },
     {
-      test: ({hi, pivotal, pr}) => hi && pivotal && pr,
+      test: ({git, hi, pivotal, pr}) => pivotal && pr && (hi || git && hasGitTeam),
       message: 'Resolve the blocker for the PR reviewer',
     },
     {
@@ -240,7 +240,7 @@ const main = bluebird.coroutine(function* (cli) {
         ' branch, move this task into the Epic meta ticket',
     },
     {
-      test: ({hi}) => hi,
+      test: ({git, hi}) => hi || git && hasGitTeam,
       message: 'Wait for reviewer approval, and for tests to pass on final commit, before merging',
     },
     {
