@@ -103,7 +103,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Publish screenshots of the completed work',
     },
     {
-      message: 'Update docs based on this change?',
+      message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
     },
     {
       message: 'Create ticket(s) for any unfinished spec, including Bonus spec',
