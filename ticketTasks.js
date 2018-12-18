@@ -53,9 +53,6 @@ const main = bluebird.coroutine(function* (cli) {
 
     // WORK
     {
-      message: 'Grep the codebase for the ticket number to find other code that needs to be updated',
-    },
-    {
       message: ({chore}) => chore
         ? 'Write tests? Probably only if it’s a critical piece of code that isn’t well tested.'
         : 'Write automated tests',
