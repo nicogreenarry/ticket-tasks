@@ -158,6 +158,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
+      test: ({chore, feat, fix}) => chore || feat || fix,
       message: 'Add acceptance testing procedures in `docs/eng_process/acceptance_tests_log.md`',
     },
     {
