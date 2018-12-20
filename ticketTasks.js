@@ -251,7 +251,8 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks after approval/merge',
     },
     {
-      message: 'Merge PR into appropriate terminal branch (to production, master, or a staging branch, for hotfixes, quick wins, and epic stories, respectively)',
+      message: ({hi}) => `${hi ? '[NOT DURING CODEFREEZE] ' : ''}Merge PR into appropriate terminal branch (to production, master, or a staging branch,` 
+        + ' for hotfixes, quick wins, and epic stories, respectively)',
     },
     {
       test: ({feature, pivotal}) => feature && pivotal,
