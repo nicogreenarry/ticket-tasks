@@ -381,7 +381,7 @@ Suggestions for reviewing style-fix PRs:
   if (cli.pr) {
     prefix = '* [ ] ';
   } else if (cli.jira) {
-    prefix = '* ';
+    prefix = '# ';
   }
   tasks
     .filter((task) => !task.test || task.test(cli))
