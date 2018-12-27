@@ -19,6 +19,12 @@ const main = bluebird.coroutine(function* (cli) {
   // Ticket tasks (pivotal or jira; not PR)
   const ticketTasks = [
     // PREWORK
+    // 
+    {
+      test: ({fix}) => fix,
+      message: 'Post a description of my estimate of the impact of the bug/issue in the appropriate team channel;' 
+        + ' ask for confirmation from stakeholders if I’m not sure about the impact',
+    },
     {
       test: ({feature, hi}) => feature && hi,
       message: 'Make sure relevant stakeholders are looped in (e.g. Vijay for FTW work)',
