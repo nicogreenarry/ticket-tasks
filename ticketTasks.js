@@ -26,6 +26,12 @@ const main = bluebird.coroutine(function* (cli) {
   // Ticket tasks (pivotal or jira; not PR)
   const ticketTasks = [
     // PREWORK
+    // 
+    {
+      test: ({fix}) => fix,
+      message: 'Post a description of my estimate of the impact of the bug/issue in the appropriate team channel;' 
+        + ' ask for confirmation from stakeholders if I’m not sure about the impact',
+    },
     {
       test: ({feature, hi}) => feature && hi,
       message: 'Make sure relevant stakeholders are looped in (e.g. Vijay for FTW work)',
@@ -59,9 +65,6 @@ const main = bluebird.coroutine(function* (cli) {
     },
 
     // WORK
-    {
-      message: 'Grep the codebase for the ticket number to find other code that needs to be updated',
-    },
     {
       message: ({chore}) => chore
         ? 'Write tests? Probably only if it’s a critical piece of code that isn’t well tested.'
@@ -110,7 +113,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Publish screenshots of the completed work',
     },
     {
-      message: 'Update docs based on this change?',
+      message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
     },
     {
       message: 'Create ticket(s) for any unfinished spec, including Bonus spec',
@@ -165,6 +168,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
+      test: ({chore, feature, fix}) => chore || feature || fix,
       message: 'Add acceptance testing procedures in `docs/eng_process/acceptance_tests_log.md`',
     },
     {
@@ -256,7 +260,8 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks after approval/merge',
     },
     {
-      message: 'Merge PR into appropriate terminal branch (to production, master, or a staging branch, for hotfixes, quick wins, and epic stories, respectively)',
+      message: ({hi}) => `${hi ? '[NOT DURING CODEFREEZE] ' : ''}Merge PR into appropriate terminal branch (to production, master, or a staging branch,` 
+        + ' for hotfixes, quick wins, and epic stories, respectively)',
     },
     {
       test: ({feature, pivotal}) => feature && pivotal,
@@ -382,7 +387,7 @@ Suggestions for reviewing style-fix PRs:
   if (cli.pr) {
     prefix = '* [ ] ';
   } else if (cli.jira) {
-    prefix = '* ';
+    prefix = '# ';
   }
   tasks
     .filter((task) => !task.test || task.test(cli))
