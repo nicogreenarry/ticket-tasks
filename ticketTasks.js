@@ -242,7 +242,7 @@ const main = bluebird.coroutine(function* (cli) {
         ' the code',
     },
     {
-      test: ({feature, fix}) => feature || fix,
+      test: ({feature, fix, git, hi}) => (feature || fix) && (hi || git && hasGitTeam),
       message: 'Wait for pre-acceptance testing on staging before merging. If no pre-acceptance testing required, at' +
         ' least get approval from relevant stakeholder(s) before merging PR (if this is merging into an epic/release' +
         ' branch, move this task into the Epic meta ticket',
