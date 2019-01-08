@@ -203,6 +203,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Update the "Changes here include..." and "Tests" sections of the PR description',
     },
     {
+      test: ({git, hi}) => hi || git && hasGitTeam,
       message: 'Request review for PR',
     },
     {
