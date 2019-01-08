@@ -2,7 +2,7 @@ const bluebird = require('bluebird');
 const cli = require('commander');
 const promptly = require('promptly');
 
-const hasGitTeamDefault = true; // Can be overruled by script parameter
+const hasGitTeamDefault = false; // Can be overruled by script parameter
 
 const main = bluebird.coroutine(function* (cli) {
   const repo = {
