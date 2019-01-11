@@ -239,7 +239,7 @@ const main = bluebird.coroutine(function* (cli) {
         'with them',
     },
     {
-      test: ({chore, git, style}) => !chore && !style && (hi || git && gitHasStaginga),
+      test: ({chore, git, hi, style}) => !chore && !style && (hi || git && gitHasStaging),
       message: 'Pre-merge, on staging: as an engineer, perform final acceptance testing on the deployed version of' +
         ' the code',
     },
