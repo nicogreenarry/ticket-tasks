@@ -171,7 +171,12 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({chore, feature, fix}) => chore || feature || fix,
-      message: 'Add acceptance testing procedures in `docs/eng_process/acceptance_tests_log.md`',
+      message: ({hi}) => {
+        const filePath = hi
+          ? '`docs/eng_process/acceptance_tests_log.md`'
+          : '`docs/engProcess/acceptanceTestsLog.md`';
+        return `Add acceptance testing procedures in ${filePath}`;
+      },
     },
     {
       test: ({hi}) => hi,
