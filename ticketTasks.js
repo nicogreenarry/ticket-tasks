@@ -118,7 +118,8 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
     },
     {
-      message: 'Create ticket(s) for any unfinished spec, including Bonus spec',
+      message: 'Create ticket(s) for any unfinished spec, including (1) unfinished spec in the ticket, ' +
+        '(2) any unfinished tasks on the ticket, and (3) any TODOs I saved in the files, or in scratch files',
     },
     {
       test: ({feature, fix, git, hi}) => (feature || fix) && (hi || git && gitHasStaging),
