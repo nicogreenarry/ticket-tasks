@@ -56,22 +56,8 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'If there’s discussion about this outside of the ticket (e.g. in slack), link from the ticket to that ' +
         'location(s), and vice versa',
     },
-    {
-      test: ({git, hi}) => hi || (git && gitHasStaging),
-      message: 'If there will be testing on staging, it’s worth pushing and creating a PR before writing automated ' + 
-        'tests, so I can start the ball rolling on pre-merge acceptance testing.',
-    },
-    {
-      message: 'If timing will be tight, it might be worth creating a PR and getting code review before I start/finish' + 
-        ' writing tests.',
-    },
 
     // WORK
-    {
-      message: ({chore}) => chore
-        ? 'Write tests? Probably only if it’s a critical piece of code that isn’t well tested.'
-        : 'Write automated tests',
-    },
     {
       test: ({feature, fix}) => feature || fix,
       message: ({hi}) => `Test against expected edge cases (ultimately create a doc with examples of common edge cases${
@@ -86,12 +72,6 @@ const main = bluebird.coroutine(function* (cli) {
     {
       test: ({hi, ui}) => ui && hi,
       message: 'Create blocker: @thomas_walichiewicz and/or @mohan_surya: language/design sign-off',
-    },
-    {
-      message: 'Merge the code into master/production',
-    },
-    {
-      message: 'Deploy it',
     },
     {
       test: ({feature, fix}) => feature || fix,
