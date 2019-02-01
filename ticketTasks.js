@@ -4,6 +4,7 @@ const promptly = require('promptly');
 
 const hasGitTeamDefault = false; // Can be overruled by script parameter
 const gitHasStaging = false;
+const gitHasTesting = false;
 
 const main = bluebird.coroutine(function* (cli) {
   const repo = {
@@ -260,7 +261,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: ({git}) => `Delete local/remote branches ${git ? 'using "git checkout master && git pull && git branch -d "' : ''}`,
     },
     {
-      test: ({hi}) => hi,
+      test: ({git}) => git && gitHasTesting,
       message: 'Make sure tests pass after merging into the terminal branch ' +
         '([master](https://github.com/captain401/provider/commits/master), ' +
         '[production](https://github.com/captain401/provider/commits/production))',
