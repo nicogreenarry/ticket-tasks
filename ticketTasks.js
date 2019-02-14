@@ -207,12 +207,6 @@ const main = bluebird.coroutine(function* (cli) {
       },
     },
     {
-      test: ({jira, pivotal, pr}) => !(jira || pivotal) && pr,
-      message: ({hi}) => 'Create this Todoist task: PR: Follow through to get approval' +
-        ` for [PR ___](${hi ? repo.hi : repo.git}/pull/___), and complete all tasks` +
-        ' on PR #work p1 tomorrow',
-    },
-    {
       test: ({git, hi, pivotal, pr}) => pivotal && pr && (hi || git && hasGitTeam),
       message: 'Resolve the blocker for the PR reviewer',
     },
