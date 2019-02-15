@@ -125,12 +125,6 @@ const main = bluebird.coroutine(function* (cli) {
       ' tester should Accept/Resolve ticket when they’re satisfied.',
     },
     {
-      test: ({git}) => git,
-      message: 'Adjust ' +
-        '[roadmap](https://docs.google.com/spreadsheets/d/1oxYpQwzd2cdSjSrAwesdrOHkKF7XIjhEzPm5wXmYBPQ/edit#gid=0) ' +
-        'if appropriate',
-    },
-    {
       message: 'Report out about this? See checklist (link to checklist?). Post high-level status update somewhere,' +
         ' e.g. to slack channel?',
     },
