@@ -17,22 +17,12 @@ const main = bluebird.coroutine(function* (cli) {
     ? hasGitTeamDefault
     : [true, 'true'].includes(cli.gitTeam);
 
-  const genericTasks = [
-    {
-      test: ({git, hi}) => hi || git && hasGitTeam,
-      message: 'Anything about this to discuss with team (e.g. at Retro/IPM/ARB)? Consider at' +
-        ' the beginning of work, but don’t close task until finishing',
-    }
-  ];
+  // Tasks to be used for both tickets and PRs
+  const genericTasks = [];
 
   // Ticket tasks (pivotal or jira; not PR)
   const ticketTasks = [
     // PREWORK
-    // 
-    {
-      test: ({feature, hi}) => feature && hi,
-      message: 'Make sure relevant stakeholders are looped in (e.g. Vijay for FTW work)',
-    },
     {
       test: ({ui}) => ui,
       message: 'Create several versions of mockups for the thing I’m building',
@@ -43,26 +33,6 @@ const main = bluebird.coroutine(function* (cli) {
         git ? ', kickstarter, blog' : ''
       }?`,
     },
-    {
-      message: ({git}) => `Share any open questions I have about things I’m working on, on slack, in ticket${
-        git ? ', on project blog' : ''
-      }...`,
-    },
-    {
-      message: 'If there’s discussion about this outside of the ticket (e.g. in slack), link from the ticket to that ' +
-        'location(s), and vice versa',
-    },
-
-    // WORK
-    {
-      test: ({feature, fix}) => feature || fix,
-      message: ({hi}) => `Test against expected edge cases (ultimately create a doc with examples of common edge cases${
-        hi 
-          ? ', e.g. for users, try regular users, admins, external admins, document signers, internal users, and ' +
-            'unified users' 
-          : ''
-      })`,
-    },
 
     // POSTWORK
     {
@@ -70,32 +40,11 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Create blocker: @thomas_walichiewicz and/or @mohan_surya: language/design sign-off',
     },
     {
-      test: ({feature, fix}) => feature || fix,
-      message: 'If relevant, once deployed, run the entire task / go through the entire process / etc. during the' +
-        ' working day, in order to catch and debug errors while things are still fresh.',
-    },
-    {
-      test: ({feature, fix}) => feature || fix,
-      message: 'Develop metrics/etc. to verify it’s working on an ongoing basis, and make sure we know if it stops' +
-        ' working',
-    },
-    {
-      test: ({feature, fix, hi}) => hi && (feature || fix),
-      message: 'PII: Delete any PII-ful data saved in Downloads folder; refresh scrubbed local db if my db has PII',
-    },
-    {
-      message: 'Share any remaining open questions I have about things I’m working on',
-    },
-    {
       test: ({ui}) => ui,
       message: 'Publish screenshots of the completed work',
     },
     {
       message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
-    },
-    {
-      message: 'Create ticket(s) for any unfinished spec, including (1) unfinished spec in the ticket, ' +
-        '(2) any unfinished tasks on the ticket, and (3) any TODOs I saved in the files, or in scratch files',
     },
     {
       test: ({feature, fix, git, hi}) => (feature || fix) && (hi || git && gitHasStaging),
@@ -139,15 +88,6 @@ const main = bluebird.coroutine(function* (cli) {
     {
       header: true,
       message: 'Tasks prior to approval',
-    },
-    {
-      test: ({chore, feature, fix}) => chore || feature || fix,
-      message: ({hi}) => {
-        const filePath = hi
-          ? '`docs/eng_process/acceptance_tests_log.md`'
-          : '`docs/engProcess/acceptanceTestsLog.md`';
-        return `Add acceptance testing procedures in ${filePath}`;
-      },
     },
     {
       test: ({hi}) => hi,
