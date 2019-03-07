@@ -141,6 +141,10 @@ const main = bluebird.coroutine(function* (cli) {
       },
     },
     {
+      test: ({hi, jira}) => hi && jira,
+      message: 'Update ticket status to Code Complete, and update ticket title to reflect status',
+    },
+    {
       test: ({git, hi, pivotal, pr}) => pivotal && pr && (hi || git && hasGitTeam),
       message: 'Resolve the blocker for the PR reviewer',
     },
@@ -218,6 +222,10 @@ const main = bluebird.coroutine(function* (cli) {
     {
       test: ({feature, pivotal}) => feature && pivotal,
       message: 'Once the final PR/branch is deployed, mark ticket Delivered',
+    },
+    {
+      test: ({hi, jira}) => hi && jira,
+      message: 'Update ticket title to reflect status (e.g. "[AWAITING acceptance test]")',
     },
 
 
