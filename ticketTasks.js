@@ -199,7 +199,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({hi, jira}) => hi && jira,
-      message: 'Update ticket title to reflect status (e.g. "[AWAITING deploy ON_DATE]")',
+      message: 'Update ticket title to reflect status (e.g. "[AWAITING DATE deploy]")',
     },
     {
       // For GIT, since we don't yet have a scheduled deploy process, I want a reminder to deploy each PR.
