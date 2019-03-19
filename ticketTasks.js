@@ -142,7 +142,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({hi, jira}) => hi && jira,
-      message: 'Update ticket status to Code Complete, and update ticket title to reflect status',
+      message: 'Update ticket status to Code Complete, and update ticket title ("[AWAITING code review]")',
     },
     {
       test: ({git, hi, pivotal, pr}) => pivotal && pr && (hi || git && hasGitTeam),
