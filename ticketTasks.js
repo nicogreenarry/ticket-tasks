@@ -324,6 +324,10 @@ Suggestions for reviewing style-fix PRs:
       const message = typeof task.message === 'function' ? task.message(cli) : task.message;
       console.log(`${task.header ? '## ' : prPrefix}${message}`);
     });
+  
+  // Log a couple of empty lines
+  console.log('\n\n');
+  
   // Log ticket tasks
   allTicketTasks
     .filter((task) => !task.test || task.test(cli)) // Include tasks with no `test` property; otherwise use test
