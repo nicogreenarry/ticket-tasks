@@ -312,18 +312,24 @@ Suggestions for reviewing style-fix PRs:
   }
 
   // PRINT OUT THE RELEVANT TASKS
-  const tasks = genericTasks.concat(cli.pr ? prTasks : ticketTasks);
-  let prefix = '';
-  if (cli.pr) {
-    prefix = '* [ ] ';
-  } else if (cli.jira) {
-    prefix = '# ';
-  }
-  tasks
-    .filter((task) => !task.test || task.test(cli))
+  const allPrTasks = genericTasks.concat(prTasks);
+  const allTicketTasks = genericTasks.concat(ticketTasks);
+  const prPrefix = '* [ ] ';
+  const ticketPrefix = cli.jira ? '# ' : '';
+  
+  // Log PR tasks
+  allPrTasks
+    .filter((task) => !task.test || task.test(cli)) // Include tasks with no `test` property; otherwise use test
     .forEach((task) => {
       const message = typeof task.message === 'function' ? task.message(cli) : task.message;
-      console.log(`${task.header ? '## ' : prefix}${message}`);
+      console.log(`${task.header ? '## ' : prPrefix}${message}`);
+    });
+  // Log ticket tasks
+  allTicketTasks
+    .filter((task) => !task.test || task.test(cli)) // Include tasks with no `test` property; otherwise use test
+    .forEach((task) => {
+      const message = typeof task.message === 'function' ? task.message(cli) : task.message;
+      console.log(`${task.header ? '' : ticketPrefix}${message}`);
     });
 });
 
@@ -345,7 +351,6 @@ if (require.main === module) {
     // Location of ticket
     .option('-j, --jira', 'Jira ticket') // cli.jira
     .option('-p, --pivotal', 'Pivotal ticket') // cli.pivotal
-    .option('--pr', 'Pull Request') // cli.pr
 
     // Other flags
     .option('-u, --ui [ui]', 'Whether there is any UI work involved') // cli.ui
