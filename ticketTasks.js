@@ -2,9 +2,13 @@ const bluebird = require('bluebird');
 const cli = require('commander');
 const promptly = require('promptly');
 
+// GIT presets
 const hasGitTeamDefault = false; // Can be overruled by script parameter
 const gitHasStaging = false;
 const gitHasTesting = false;
+
+// HI presetns
+const hiStagingPreAcceptanceTesting = false;
 
 const main = bluebird.coroutine(function* (cli) {
   const repo = {
@@ -47,7 +51,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
     },
     {
-      test: ({feature, fix, git, hi}) => (feature || fix) && (hi || git && gitHasStaging),
+      test: ({feature, fix, git, hi}) => (feature || fix) && ((hi && hiStagingPreAcceptanceTesting) || git && gitHasStaging),
       message: 'Pre-acceptance testing on staging: Write a comment, "@REQUESTER, this is ready for pre-acceptance' +
         ' testing on staging; see PR_URL for the staging url. You can test it by STEPS_TO_TEST". Create a blocker' +
         ' labeling requester: "@REQUESTER pre-acceptance test ticket per comment". OR if it’s something that can’t ' +
@@ -153,12 +157,12 @@ const main = bluebird.coroutine(function* (cli) {
         'with them',
     },
     {
-      test: ({chore, git, hi, style}) => !chore && !style && (hi || git && gitHasStaging),
+      test: ({chore, git, hi, style}) => !chore && !style && ((hi && hiStagingPreAcceptanceTesting) || git && gitHasStaging),
       message: 'Pre-merge, on staging: as an engineer, perform final acceptance testing on the deployed version of' +
         ' the code',
     },
     {
-      test: ({feature, fix, git, hi}) => (feature || fix) && (hi || git && hasGitTeam && gitHasStaging),
+      test: ({feature, fix, git, hi}) => (feature || fix) && ((hi && hiStagingPreAcceptanceTesting) || git && hasGitTeam && gitHasStaging),
       message: 'Wait for pre-acceptance testing on staging before merging. If no pre-acceptance testing required, at' +
         ' least get approval from relevant stakeholder(s) before merging PR (if this is merging into an epic/release' +
         ' branch, move this task into the Epic meta ticket',
