@@ -172,11 +172,11 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Get reviewer approval',
     },
     {
-      test: ({git, hi}) => hi || git && gitHasTesting,
-      message: 'Wait for tests to pass on final commit',
+      message: 'Make sure I don’t have changes I didn’t push (e.g. responding to PR comments)',
     },
     {
-      message: 'Make sure I don’t have changes I didn’t push (e.g. responding to PR comments)',
+      test: ({git, hi}) => hi || git && gitHasTesting,
+      message: 'Wait for tests to pass on final commit',
     },
 
     // AFTER MERGE
