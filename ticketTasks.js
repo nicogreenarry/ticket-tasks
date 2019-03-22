@@ -129,12 +129,12 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Request review for PR',
     },
     {
-      test: ({git, hi, pivotal, pr}) => pivotal && pr && (hi || git && hasGitTeam),
+      test: ({git, hi, pivotal}) => pivotal && (hi || git && hasGitTeam),
       message: 'Add a blocker in this ticket linking the reviewer: @USERNAME review' +
         ` [PR _____](${repo.hi}/pull/_____)`,
     },
     {
-      test: ({jira, pivotal, pr}) => pr && (jira || pivotal),
+      test: ({jira, pivotal}) => (jira || pivotal),
       message: ({hi, pivotal}) => {
         const relevantRepo = repo[hi ? 'hi' : 'git'];
         const ticketSource = pivotal ? 'Pivotal' : 'Jira';
@@ -149,7 +149,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Update ticket status to Code Complete, and update ticket title ("[AWAITING code review]")',
     },
     {
-      test: ({git, hi, pivotal, pr}) => pivotal && pr && (hi || git && hasGitTeam),
+      test: ({git, hi, pivotal}) => pivotal && (hi || git && hasGitTeam),
       message: 'Resolve the blocker for the PR reviewer',
     },
     {
@@ -284,14 +284,14 @@ Suggestions for reviewing style-fix PRs:
     cli[response] = true;
   }
 
-  if (!cli.jira && !cli.pivotal && !cli.pr) {
-    const response = yield promptly.prompt('Where does the ticket/task live? jira, pivotal, pr? [pivotal]', {
+  if (!cli.jira && !cli.pivotal) {
+    const response = yield promptly.prompt('Where does the ticket/task live? jira, pivotal? [pivotal]', {
       default: 'pivotal',
       validator(value) {
-        if (['jira', 'pivotal', 'pr'].includes(value)) {
+        if (['jira', 'pivotal'].includes(value)) {
           return value;
         }
-        throw new Error('Value must be one of jira, pivotal, pr.');
+        throw new Error('Value must be one of jira, pivotal.');
       },
     });
     cli[response] = true;
