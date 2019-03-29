@@ -7,7 +7,7 @@ const hasGitTeamDefault = false; // Can be overruled by script parameter
 const gitHasStaging = false;
 const gitHasTesting = false;
 
-// HI presetns
+// HI presets
 const hiStagingPreAcceptanceTesting = false;
 
 const main = bluebird.coroutine(function* (cli) {
