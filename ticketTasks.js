@@ -147,7 +147,7 @@ const main = bluebird.coroutine(function* (cli) {
       },
     },
     {
-      test: ({hi, jira}) => hi && jira,
+      test: ({hi, jira, style}) => !style && hi && jira,
       message: 'Update ticket status to Code Complete, and update ticket title ("[AWAITING code review]")',
     },
     {
@@ -204,7 +204,7 @@ const main = bluebird.coroutine(function* (cli) {
         '[production](https://github.com/captain401/provider/commits/production))',
     },
     {
-      test: ({hi, jira}) => hi && jira,
+      test: ({hi, jira, style}) => !style && hi && jira,
       message: 'Update ticket title to reflect status (e.g. "[AWAITING DATE deploy]")',
     },
     {
@@ -234,7 +234,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Once the final PR/branch is deployed, mark ticket Delivered',
     },
     {
-      test: ({hi, jira}) => hi && jira,
+      test: ({hi, jira, style}) => !style && hi && jira,
       message: 'Update ticket title to reflect status (e.g. "[AWAITING acceptance test]")',
     },
 
