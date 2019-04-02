@@ -287,9 +287,12 @@ Suggestions for reviewing style-fix PRs:
   }
 
   if (!cli.jira && !cli.pivotal) {
-    // HI always uses jira, so use that if jira/pivotal wasn't specified. GIT always uses pivotal.
-    const ticketService = cli.hi ? 'jira' : 'pivotal';
-    cli[ticketService] = true;
+    // Style branches have no ticket, so ignore them
+    if (!cli.style) {
+      // HI always uses jira, so use that if jira/pivotal wasn't specified. GIT always uses pivotal.
+      const ticketService = cli.hi ? 'jira' : 'pivotal';
+      cli[ticketService] = true;
+    }
   }
 
   // If I enter either `--ui` or `--ui false`, cli.ui will be truthy; I need to change it to
