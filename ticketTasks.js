@@ -287,16 +287,9 @@ Suggestions for reviewing style-fix PRs:
   }
 
   if (!cli.jira && !cli.pivotal) {
-    const response = yield promptly.prompt('Where does the ticket/task live? jira, pivotal? [pivotal]', {
-      default: 'pivotal',
-      validator(value) {
-        if (['jira', 'pivotal'].includes(value)) {
-          return value;
-        }
-        throw new Error('Value must be one of jira, pivotal.');
-      },
-    });
-    cli[response] = true;
+    // HI always uses jira, so use that if jira/pivotal wasn't specified. GIT always uses pivotal.
+    const ticketService = cli.hi ? 'jira' : 'pivotal';
+    cli[ticketService] = true;
   }
 
   // If I enter either `--ui` or `--ui false`, cli.ui will be truthy; I need to change it to
