@@ -136,12 +136,13 @@ const main = bluebird.coroutine(function* (cli) {
         ` [PR _____](${repo.hi}/pull/_____)`,
     },
     {
+      // If there's no ticket, e.g. for a style fix, no need to track carefully - we can skip this task
       test: ({jira, pivotal}) => (jira || pivotal),
       message: ({hi, jira, pivotal}) => {
         const relevantRepo = repo[hi ? 'hi' : 'git'];
         const ticketSource = jira ? 'Jira' : 'Pivotal';
         const linkMarkdown = jira ? `[PR ___|${relevantRepo}/pull/___]` : `[PR ___](${relevantRepo}/pull/___)`;
-        return `Record task in ticket (or priorities list): PR: Complete all steps: ${linkMarkdown}`;
+        return `Record task in ticket: PR: Complete all steps: ${linkMarkdown}`;
       },
     },
     {
