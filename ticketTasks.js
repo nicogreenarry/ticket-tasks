@@ -137,13 +137,11 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({jira, pivotal}) => (jira || pivotal),
-      message: ({hi, pivotal}) => {
+      message: ({hi, jira, pivotal}) => {
         const relevantRepo = repo[hi ? 'hi' : 'git'];
-        const ticketSource = pivotal ? 'Pivotal' : 'Jira';
-        const linkMarkdown = pivotal ? `[PR ___](${relevantRepo}/pull/___)` : `[PR ___|${relevantRepo}/pull/___]`;
-        return `Move this into the ${ticketSource} task: PR: Follow through to get approval for ${
-          linkMarkdown
-        }, and complete all tasks on PR`;
+        const ticketSource = jira ? 'Jira' : 'Pivotal';
+        const linkMarkdown = jira ? `[PR ___|${relevantRepo}/pull/___]` : `[PR ___](${relevantRepo}/pull/___)`;
+        return `Record task in ticket (or priorities list): PR: Complete all steps: ${linkMarkdown}`;
       },
     },
     {
