@@ -218,6 +218,10 @@ const main = bluebird.coroutine(function* (cli) {
         'acceptance testing steps in the Acceptance Testing log',
     },
     {
+      test: ({feature, fix, hi}) => hi && (feature || fix),
+      message: 'Post about this in the #eng_release slack channel (with screenshots/gifs)?',
+    },
+    {
       test: ({hi, ui}) => hi && ui,
       message: 'Take screenshots of various UI states and add them to ' +
         '[our design repo](https://github.com/captain401/design) (`cd dev/design`), and probably to PR description' +
