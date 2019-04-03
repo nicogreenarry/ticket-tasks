@@ -22,9 +22,7 @@ const main = bluebird.coroutine(function* (cli) {
     : [true, 'true'].includes(cli.gitTeam);
 
   // Tasks to be used for both tickets and PRs
-  const genericTasks = [
-    { message: 'Should I demonstrate this work (e.g. at a Eng staff meeting)?' },
-  ];
+  const genericTasks = [];
 
   // Ticket tasks (pivotal or jira; not PR)
   const ticketTasks = [
@@ -221,6 +219,7 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({feature, fix, hi}) => hi && (feature || fix),
       message: 'Post about this in the #eng_release slack channel (with screenshots/gifs)?',
     },
+    { message: 'Should I demonstrate this work (e.g. at a Eng staff meeting)?' },
     {
       test: ({hi, ui}) => hi && ui,
       message: 'Take screenshots of various UI states and add them to ' +
