@@ -219,7 +219,10 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({feature, fix, hi}) => hi && (feature || fix),
       message: 'Post about this in the #eng_release slack channel (with screenshots/gifs)?',
     },
-    { message: 'Should I demonstrate this work (e.g. at a Eng staff meeting)?' },
+    {
+      test: ({chore, hi, style}) => hi && !(chore || style),
+      message: 'Should I demonstrate this work (e.g. at a Eng staff meeting)?',
+    },
     {
       test: ({hi, ui}) => hi && ui,
       message: 'Take screenshots of various UI states and add them to ' +
