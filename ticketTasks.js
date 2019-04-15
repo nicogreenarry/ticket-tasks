@@ -224,13 +224,6 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Should I demonstrate this work (e.g. at a Eng staff meeting)?',
     },
     {
-      test: ({hi, ui}) => hi && ui,
-      message: 'Take screenshots of various UI states and add them to ' +
-        '[our design repo](https://github.com/captain401/design) (`cd dev/design`), and probably to PR description' +
-        ' (or as comments if there are a lot of them). If they’re just a small change to a page (adding a button),' +
-        ' name them the same as the main screen with an appended A (e.g. 00A.png for a summary screen change)',
-    },
-    {
       test: ({hi, style}) => hi && !style,
       message: 'Record in CMD, MILO notes, as Retro/etc. sticky?',
     },
