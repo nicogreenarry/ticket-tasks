@@ -40,14 +40,6 @@ const main = bluebird.coroutine(function* (cli) {
 
     // POSTWORK
     {
-      test: ({hi, ui}) => ui && hi,
-      message: 'Create blocker: @thomas_walichiewicz and/or @mohan_surya: language/design sign-off',
-    },
-    {
-      test: ({ui}) => ui,
-      message: 'Publish screenshots of the completed work',
-    },
-    {
       message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
     },
     {
@@ -92,6 +84,14 @@ const main = bluebird.coroutine(function* (cli) {
     {
       header: true,
       message: 'Tasks prior to approval',
+    },
+    {
+      test: ({hi, ui}) => ui && hi,
+      message: 'Pre-merge acceptance: Get design approval (likely from Thomas)',
+    },
+    {
+      test: ({feat, hi}) => feat && hi,
+      message: 'Pre-merge acceptance: Get PM approval (likely from Graham)',
     },
     {
       test: ({hi}) => hi,
