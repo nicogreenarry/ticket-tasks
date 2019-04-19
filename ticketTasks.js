@@ -90,7 +90,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Pre-merge acceptance: Get design approval (likely from Thomas)',
     },
     {
-      test: ({feat, hi}) => feat && hi,
+      test: ({feature, hi}) => feature && hi,
       message: 'Pre-merge acceptance: Get PM approval (likely from Graham)',
     },
     {
