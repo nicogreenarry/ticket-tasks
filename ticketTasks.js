@@ -187,7 +187,8 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks after approval/merge',
     },
     {
-      message: ({hi}) => `${hi ? '[NOT DURING CODEFREEZE] ' : ''}Merge PR into appropriate terminal branch (to production, master, or a staging branch,`
+      message: ({featureBranch, hi}) => `${hi && !featureBranch ? '[NOT DURING CODEFREEZE] ' : ''}` 
+        + `Merge PR into appropriate terminal branch (to production, master, or a staging branch,`
         + ' for hotfixes, quick wins, and epic stories, respectively)',
     },
     {
@@ -204,22 +205,22 @@ const main = bluebird.coroutine(function* (cli) {
         '[production](https://github.com/captain401/provider/commits/production))',
     },
     {
-      test: ({hi, jira, style}) => !style && hi && jira,
+      test: ({featureBranch, hi, jira, style}) => !(style || featureBranch) && hi && jira,
       message: 'Update ticket title to reflect status (e.g. "[AWAITING DATE deploy]")',
     },
     {
       // For GIT, since we don't yet have a scheduled deploy process, I want a reminder to deploy each PR.
-      test: ({feature, fix, git}) => git || feature || fix,
+      test: ({feature, featureBranch, fix, git}) => !featureBranch && (git || feature || fix),
       message: 'Deploy the code (to production, master, or a staging branch, for hotfixes, ' +
         'quick wins, and epic stories, respectively)',
     },
     {
-      test: ({feature, fix}) => feature || fix,
+      test: ({feature, featureBranch, fix}) => !featureBranch && (feature || fix),
       message: 'As an engineer, perform final acceptance testing on the deployed version of the code, per the ' +
         'acceptance testing steps in the Acceptance Testing log',
     },
     {
-      test: ({feature, fix, hi}) => hi && (feature || fix),
+      test: ({feature, featureBranch, fix, hi}) => !featureBranch && hi && (feature || fix),
       message: 'Post about this in the #eng_release slack channel (with screenshots/gifs)?',
     },
     {
@@ -231,11 +232,11 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Record in CMD, MILO notes, as Retro/etc. sticky?',
     },
     {
-      test: ({feature, pivotal}) => feature && pivotal,
+      test: ({feature, featureBranch, pivotal}) => !featureBranch && feature && pivotal,
       message: 'Once the final PR/branch is deployed, mark ticket Delivered',
     },
     {
-      test: ({hi, jira, style}) => !style && hi && jira,
+      test: ({featureBranch, hi, jira, style}) => !(style || featureBranch) && hi && jira,
       message: 'Update ticket title to reflect status (e.g. "[AWAITING acceptance test]")',
     },
 
@@ -274,16 +275,24 @@ Suggestions for reviewing style-fix PRs:
     cli[response] = true;
   }
 
-  if (!cli.chore && !cli.feature && !cli.fix && !cli.style) {
-    const response = yield promptly.prompt('What type of work is this? chore, feature, fix, style? [feature]', {
-      default: 'feature',
-      validator(value) {
-        if (['chore', 'feature', 'fix', 'style'].includes(value)) {
-          return value;
-        }
-        throw new Error('Value must be one of chore, feature, fix, style.');
-      },
-    });
+  // Use the feature-branch flag as a shorthand for feature && feature-branch
+  if (cli.featureBranch) {
+    cli.feature = true;
+  }
+
+  if (![cli.chore, cli.feature, cli.featureBranch, cli.fix, cli.style].includes(true)) {
+    const response = yield promptly.prompt(
+      'What type of work is this? chore, feature, feature-branch, fix, style? [feature]', 
+      {
+        default: 'feature',
+        validator(value) {
+          if (['chore', 'feature', 'feature-branch', 'fix', 'style'].includes(value)) {
+            return value;
+          }
+          throw new Error('Value must be one of chore, feature, feature-branch, fix, style.');
+        },
+      }
+    );
     cli[response] = true;
   }
 
