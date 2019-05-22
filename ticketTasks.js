@@ -35,7 +35,7 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({ui}) => ui,
       message: ({git}) => `Publish some mockups to appropriate channels: ticket, PR, slack${
         git ? ', kickstarter, blog' : ''
-      }?`,
+        }?`,
     },
 
     // POSTWORK
@@ -55,8 +55,8 @@ const main = bluebird.coroutine(function* (cli) {
         const entities = hi ? 'people/companies/etc.' : 'users/contacts/stories/etc.';
         return fix
           ? 'Whom did this bug/issue/etc. affect? Even after fixing the issue, what do we need to do to address '
-            + 'those problems? Even in the case of proactive fixes, think about taking retroactive action on '
-            + `${entities} whom this change won’t automatically affect, but should.`
+          + 'those problems? Even in the case of proactive fixes, think about taking retroactive action on '
+          + `${entities} whom this change won’t automatically affect, but should.`
           : `Take retroactive action on ${entities} whom this change won’t automatically affect, but should.`;
       },
     },
@@ -67,7 +67,7 @@ const main = bluebird.coroutine(function* (cli) {
     {
       test: ({feature, fix}) => feature || fix,
       message: 'Post-deploy Acceptance testing. Comment with testing procedures, and create blocker. Indicate whether' +
-      ' tester should Accept/Resolve ticket when they’re satisfied.',
+        ' tester should Accept/Resolve ticket when they’re satisfied.',
     },
     {
       message: 'Report out about this? See checklist (link to checklist?). Post high-level status update somewhere,' +
@@ -126,7 +126,10 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({git, hi}) => hi || git && hasGitTeam,
-      message: 'Request review for PR',
+      message: 'Request review for PR; add this to PR description: ' +
+        'Reviewer suggestions: Any time I make FYI-style comments, ' +
+        'feel free to resolve them after you’ve read them, ' +
+        'if you prefer resolving comments to get them out of sight.',
     },
     {
       test: ({git, hi, pivotal}) => pivotal && (hi || git && hasGitTeam),
@@ -184,7 +187,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks after approval/merge',
     },
     {
-      message: ({hi}) => `${hi ? '[NOT DURING CODEFREEZE] ' : ''}Merge PR into appropriate terminal branch (to production, master, or a staging branch,` 
+      message: ({hi}) => `${hi ? '[NOT DURING CODEFREEZE] ' : ''}Merge PR into appropriate terminal branch (to production, master, or a staging branch,`
         + ' for hotfixes, quick wins, and epic stories, respectively)',
     },
     {
@@ -316,7 +319,7 @@ Suggestions for reviewing style-fix PRs:
   const allTicketTasks = genericTasks.concat(ticketTasks);
   const prPrefix = '* [ ] ';
   const ticketPrefix = cli.jira ? '# ' : '';
-  
+
   // Log PR tasks
   allPrTasks
     .filter((task) => !task.test || task.test(cli)) // Include tasks with no `test` property; otherwise use test
@@ -324,10 +327,10 @@ Suggestions for reviewing style-fix PRs:
       const message = typeof task.message === 'function' ? task.message(cli) : task.message;
       console.log(`${task.header ? '## ' : prPrefix}${message}`);
     });
-  
+
   // Log a couple of empty lines
   console.log('\n\n');
-  
+
   // Log ticket tasks
   allTicketTasks
     .filter((task) => !task.test || task.test(cli)) // Include tasks with no `test` property; otherwise use test
