@@ -345,7 +345,7 @@ Suggestions for reviewing style-fix PRs:
     .filter((task) => !task.test || task.test(cli)) // Include tasks with no `test` property; otherwise use test
     .forEach((task) => {
       const message = typeof task.message === 'function' ? task.message(cli) : task.message;
-      console.log(`${task.header ? '## ' : prPrefix}${message}`);
+      console.log(`${task.header ? '\n## ' : prPrefix}${message}`);
     });
 
   // Log a couple of empty lines
@@ -356,7 +356,7 @@ Suggestions for reviewing style-fix PRs:
     .filter((task) => !task.test || task.test(cli)) // Include tasks with no `test` property; otherwise use test
     .forEach((task) => {
       const message = typeof task.message === 'function' ? task.message(cli) : task.message;
-      console.log(message);
+      console.log(`${task.header ? '\n' : ''}${message}`);
     });
 });
 
