@@ -335,7 +335,6 @@ Suggestions for reviewing style-fix PRs:
   const allPrTasks = genericTasks.concat(prTasks);
   const allTicketTasks = genericTasks.concat(ticketTasks);
   const prPrefix = '* [ ] ';
-  const ticketPrefix = cli.jira ? '# ' : '';
 
   // Log PR tasks
   allPrTasks
@@ -353,7 +352,7 @@ Suggestions for reviewing style-fix PRs:
     .filter((task) => !task.test || task.test(cli)) // Include tasks with no `test` property; otherwise use test
     .forEach((task) => {
       const message = typeof task.message === 'function' ? task.message(cli) : task.message;
-      console.log(`${task.header ? '' : ticketPrefix}${message}`);
+      console.log(message);
     });
 });
 
