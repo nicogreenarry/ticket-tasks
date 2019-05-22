@@ -86,6 +86,10 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
+      test: ({featureBranch}) => featureBranch,
+      message: 'If this PR is based on un-merged work in this feature branch, change the base branch of this PR',
+    },
+    {
       test: ({hi, ui}) => ui && hi,
       message: 'Pre-merge acceptance: Get design approval (likely from Thomas)',
     },
@@ -187,9 +191,13 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks after approval/merge',
     },
     {
-      message: ({featureBranch, hi}) => `${hi && !featureBranch ? '[NOT DURING CODEFREEZE] ' : ''}` 
+      message: ({featureBranch, hi}) => `${hi && !featureBranch ? '[NOT DURING CODEFREEZE] ' : ''}`
         + `Merge PR into appropriate terminal branch (to production, master, or a staging branch,`
         + ' for hotfixes, quick wins, and epic stories, respectively)',
+    },
+    {
+      test: ({featureBranch}) => featureBranch,
+      message: 'Update the base branches of any PRs that are based on this PR (search PRs with base:BRANCH_NAME)'
     },
     {
       test: ({feature, pivotal}) => feature && pivotal,
@@ -282,7 +290,7 @@ Suggestions for reviewing style-fix PRs:
 
   if (![cli.chore, cli.feature, cli.featureBranch, cli.fix, cli.style].includes(true)) {
     const response = yield promptly.prompt(
-      'What type of work is this? chore, feature, feature-branch, fix, style? [feature]', 
+      'What type of work is this? chore, feature, feature-branch, fix, style? [feature]',
       {
         default: 'feature',
         validator(value) {
