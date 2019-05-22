@@ -368,6 +368,7 @@ if (require.main === module) {
     // Type of work
     .option('-c, --chore', 'Chore (improvements only devs will notice)') // cli.chore
     .option('-f, --feature', 'Feature (adding business value)') // cli.feature
+    .option('--feature-branch', 'Feature branch (multiple PRs into a single branch, separate from master)') // cli.featureBranch
     .option('--fix', 'Fix (a bugfix)') // cli.fix
     .option('-s, --style', 'Style (linting improvements and similar cleanup)') // cli.style
 
