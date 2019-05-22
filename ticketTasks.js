@@ -65,7 +65,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Resolve any related rollbars (see Jira integration and comments)',
     },
     {
-      test: ({feature, fix}) => feature || fix,
+      test: ({feature, featureBranch, fix}) => !featureBranch && (feature || fix),
       message: 'Post-deploy Acceptance testing. Comment with testing procedures, and create blocker. Indicate whether' +
         ' tester should Accept/Resolve ticket when they’re satisfied.',
     },
