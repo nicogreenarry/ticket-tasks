@@ -208,7 +208,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Once the final PR is merged, mark ticket Finished (for Chores, do this task last)',
     },
     {
-      message: ({git}) => `Delete local/remote branches ${git ? 'using "git checkout master && git pull && git branch -d "' : ''}`,
+      message: 'Delete local/remote branches',
     },
     {
       test: ({git}) => git && gitHasTesting,
