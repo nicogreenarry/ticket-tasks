@@ -271,8 +271,6 @@ Suggestions for reviewing style-fix PRs:
     },
   ];
 
-  console.log('Task templates: https://github.com/nicogreenarry/ticket-tasks/edit/master/ticketTasks.js');
-
   // ASK RELEVANT QUESTIONS IF USER DIDN'T SUPPLY ENOUGH FLAGS
   if (!cli.git && !cli.hi) {
     const response = yield promptly.prompt('Is this work for Human Interest (hi) or Get In Touch (git)? [hi]', {
