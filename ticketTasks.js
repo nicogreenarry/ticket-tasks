@@ -317,7 +317,8 @@ Suggestions for reviewing style-fix PRs:
 
   // If I enter either `--ui` or `--ui false`, cli.ui will be truthy; I need to change it to
   // true/false based on which value it is.
-  if (cli.ui) {
+  console.log('cli.ui: ', cli.ui);
+  if (cli.hasOwnProperty('ui')) {
     cli.ui = [true, 'true'].includes(cli.ui); // `--ui` and `--ui true` both mean "yes, UI"
   } else {
     // If I didn't use the ui flag at all, ask about it
