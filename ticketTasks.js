@@ -197,7 +197,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       message: ({featureBranch, hi}) => `${hi && !featureBranch ? '[NOT DURING CODEFREEZE] ' : ''}`
-        + `Merge PR ',
+        + 'Merge PR ',
     },
     {
       test: ({featureBranch}) => featureBranch,
@@ -260,14 +260,14 @@ const main = bluebird.coroutine(function* (cli) {
     {
       test: ({style}) => style,
       message: `No ticket
-No testing; no functional changes
-No need to coordinate deployment
+      No testing; no functional changes
+  No need to coordinate deployment
 
-Just style fixes.
+  Just style fixes.
 
-Suggestions for reviewing style-fix PRs:
-* There shouldn't be any functional changes, so if you see anything that looks like one, call it out.
-* You may want to review using Unified view (rather than Split view). I prefer Split view for most PRs,`
+    Suggestions for reviewing style-fix PRs:
+    * There shouldn't be any functional changes, so if you see anything that looks like one, call it out.
+  * You may want to review using Unified view (rather than Split view). I prefer Split view for most PRs,`
         + ' because I can see each version on its own. But for these style PRs, ' +
         'each change can really be considered on its own, without consideration for the other changes around it, ' +
         'and the Unified view sometimes makes that easier.',
