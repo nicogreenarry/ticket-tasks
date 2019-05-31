@@ -204,7 +204,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Close the jira sub-ticket for this PR',
     },
     {
-      test: ({feature, pivotal}) => feature && pivotal,
+      test: ({feature, fix, pivotal}) => (feature || fix) && pivotal,
       message: 'Once the final PR is merged, mark ticket Finished (for Chores, do this task last)',
     },
     {
@@ -244,7 +244,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Record in CMD, MILO notes, as Retro/etc. sticky?',
     },
     {
-      test: ({feature, featureBranch, pivotal}) => !featureBranch && feature && pivotal,
+      test: ({feature, fix, pivotal}) => (feature || fix) && pivotal,
       message: 'Once the final PR/branch is deployed, mark ticket Delivered',
     },
     {
