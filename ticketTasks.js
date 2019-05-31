@@ -87,7 +87,12 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({featureBranch}) => featureBranch,
-      message: 'If this PR is based on un-merged work in this feature branch, change the base branch of this PR',
+      message: 'If this PR is based on un-merged work in this feature branch, set that as the base branch of this PR. '
+        + 'Otherwise, set the base branch to be the feature branch.',
+    },
+    {
+      test: ({fix}) => fix,
+      message: 'Set the base branch of the PR as `production`',
     },
     {
       test: ({hi, ui}) => ui && hi,
@@ -192,8 +197,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       message: ({featureBranch, hi}) => `${hi && !featureBranch ? '[NOT DURING CODEFREEZE] ' : ''}`
-        + `Merge PR into appropriate terminal branch (to production, master, or a staging branch,`
-        + ' for hotfixes, quick wins, and epic stories, respectively)',
+        + `Merge PR ',
     },
     {
       test: ({featureBranch}) => featureBranch,
@@ -223,8 +227,7 @@ const main = bluebird.coroutine(function* (cli) {
     {
       // For GIT, since we don't yet have a scheduled deploy process, I want a reminder to deploy each PR.
       test: ({feature, featureBranch, fix, git}) => !featureBranch && (git || feature || fix),
-      message: 'Deploy the code (to production, master, or a staging branch, for hotfixes, ' +
-        'quick wins, and epic stories, respectively)',
+      message: 'Deploy the code',
     },
     {
       test: ({feature, featureBranch, fix}) => !featureBranch && (feature || fix),
