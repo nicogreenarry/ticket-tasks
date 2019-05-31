@@ -102,7 +102,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Open circleCI tabs so I’ll immediately be notified of test failures',
     },
     {
-      test: ({chore, fix}) => chore || fix,
+      test: ({chore, fix, hi}) => hi && (chore || fix),
       message: 'Add Hotfix label to PR?',
     },
     {
