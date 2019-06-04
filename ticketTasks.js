@@ -86,6 +86,10 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
+      test: ({hi, jira, style}) => !style && hi && jira,
+      message: 'Mark ticket as "Ready for review"? Skip if I know of more engineering work I need to do.',
+    },
+    {
       test: ({featureBranch}) => featureBranch,
       message: 'If this PR is based on un-merged work in this feature branch, set that as the base branch of this PR. '
         + 'Otherwise, set the base branch to be the feature branch.',
@@ -154,10 +158,6 @@ const main = bluebird.coroutine(function* (cli) {
         const linkMarkdown = jira ? `[PR ___|${relevantRepo}/pull/___]` : `[PR ___](${relevantRepo}/pull/___)`;
         return `Record task in ticket: PR: Complete all steps: ${linkMarkdown}`;
       },
-    },
-    {
-      test: ({hi, jira, style}) => !style && hi && jira,
-      message: 'Update ticket status to Code Complete, and update ticket title ("[AWAITING code review]")',
     },
     {
       test: ({git, hi, pivotal}) => pivotal && (hi || git && hasGitTeam),
