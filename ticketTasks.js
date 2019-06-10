@@ -95,7 +95,7 @@ const main = bluebird.coroutine(function* (cli) {
         + 'Otherwise, set the base branch to be the feature branch.',
     },
     {
-      test: ({fix}) => fix,
+      test: ({fix, hi}) => fix && hi,
       message: 'Set the base branch of the PR as `production`',
     },
     {
