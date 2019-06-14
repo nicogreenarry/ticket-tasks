@@ -61,10 +61,6 @@ const main = bluebird.coroutine(function* (cli) {
       },
     },
     {
-      test: ({fix}) => fix,
-      message: 'Resolve any related rollbars (see Jira integration and comments)',
-    },
-    {
       test: ({feature, featureBranch, fix, git}) => (!git || hasGitTeam) && !featureBranch && (feature || fix),
       message: 'Post-deploy Acceptance testing. Comment with testing procedures, and create blocker. Indicate whether' +
         ' tester should Accept/Resolve ticket when they’re satisfied.',
@@ -87,7 +83,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({hi, jira, style}) => !style && hi && jira,
-      message: 'Mark ticket as "Ready for review"? Skip if I know of more engineering work I need to do.',
+      message: 'Mark ticket as "Ready to accept"? Skip if I know of more engineering work I need to do.',
     },
     {
       test: ({featureBranch}) => featureBranch,
@@ -221,10 +217,6 @@ const main = bluebird.coroutine(function* (cli) {
         '[production](https://github.com/captain401/provider/commits/production))',
     },
     {
-      test: ({featureBranch, hi, jira, style}) => !(style || featureBranch) && hi && jira,
-      message: 'Update ticket title to reflect status (e.g. "[AWAITING DATE deploy]")',
-    },
-    {
       // For GIT, since we don't yet have a scheduled deploy process, I want a reminder to deploy each PR.
       test: ({feature, featureBranch, fix, git}) => !featureBranch && (git || feature || fix),
       message: 'Deploy the code',
@@ -250,11 +242,6 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({feature, fix, pivotal}) => (feature || fix) && pivotal,
       message: 'Once the final PR/branch is deployed, mark ticket Delivered',
     },
-    {
-      test: ({featureBranch, hi, jira, style}) => !(style || featureBranch) && hi && jira,
-      message: 'Update ticket title to reflect status (e.g. "[AWAITING acceptance test]")',
-    },
-
 
     // STYLE PR ONLY
     {
