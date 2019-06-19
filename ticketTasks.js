@@ -66,10 +66,6 @@ const main = bluebird.coroutine(function* (cli) {
         ' tester should Accept/Resolve ticket when they’re satisfied.',
     },
     {
-      message: 'Report out about this? See checklist (link to checklist?). Post high-level status update somewhere,' +
-        ' e.g. to slack channel?',
-    },
-    {
       test: ({fix}) => fix,
       message: 'Think about (1) what improved design, resolved tech debt, etc. could have prevented this issue,' +
         ' and (2) what improved design/debugging/error reporting/etc. would have made it faster to debug and solve'
@@ -139,6 +135,10 @@ const main = bluebird.coroutine(function* (cli) {
         'Reviewer suggestions: Any time I make FYI-style comments, ' +
         'feel free to resolve them after you’ve read them, ' +
         'if you prefer resolving comments to get them out of sight.',
+    },
+    {
+      test: ({hi}) => hi,
+      message: 'Make a note to bring this up in stand-up (and potentially retro)',
     },
     {
       test: ({git, hi, pivotal}) => pivotal && (hi || git && hasGitTeam),
