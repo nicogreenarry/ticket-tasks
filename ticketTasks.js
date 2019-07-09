@@ -200,7 +200,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Update the base branches of any PRs that are based on this PR (search PRs with base:BRANCH_NAME)'
     },
     {
-      test: ({feature, featureBranch, jira}) => (feature || featureBranch) && jira,
+      test: ({jira}) => jira,
       message: 'Close the jira sub-ticket for this PR',
     },
     {
