@@ -131,10 +131,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({git, hi}) => hi || git && hasGitTeam,
-      message: 'Request review for PR; add this to PR description: ' +
-        'Reviewer suggestions: Any time I make FYI-style comments, ' +
-        'feel free to resolve them after you’ve read them, ' +
-        'if you prefer resolving comments to get them out of sight.',
+      message: 'Request review for PR',
     },
     {
       test: ({hi}) => hi,
