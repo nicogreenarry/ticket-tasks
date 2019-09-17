@@ -176,6 +176,10 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Get reviewer approval',
     },
     {
+      test: ({git, hi}) => hi || git && hasGitTeam,
+      message: 'Address reviewer comments',
+    },
+    {
       message: 'Make sure I don’t have changes I didn’t push (e.g. responding to PR comments)',
     },
     {
