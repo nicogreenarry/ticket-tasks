@@ -216,8 +216,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({feature, featureBranch, fix}) => !featureBranch && (feature || fix),
-      message: 'As an engineer, perform final acceptance testing on the deployed version of the code, per the ' +
-        'acceptance testing steps in the Acceptance Testing log',
+      message: 'As an engineer, perform final acceptance testing on the deployed version of the code',
     },
     {
       test: ({feature, featureBranch, fix, hi}) => !featureBranch && hi && (feature || fix),
