@@ -9,6 +9,7 @@ const gitHasTesting = false;
 
 // HI presets
 const hiStagingPreAcceptanceTesting = false;
+const hiHasDesigner = false;
 
 const main = bluebird.coroutine(function* (cli) {
   const repo = {
@@ -91,8 +92,8 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Set the base branch of the PR as `production`',
     },
     {
-      test: ({hi, ui}) => ui && hi,
-      message: 'Pre-merge acceptance: Get design approval (likely from Thomas)',
+      test: ({hi, ui}) => ui && hi && hiHasDesigner,
+      message: 'Pre-merge acceptance: Get design approval',
     },
     {
       test: ({feature, hi}) => feature && hi,
