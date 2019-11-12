@@ -145,7 +145,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       // If there's no ticket, e.g. for a style fix, no need to track carefully - we can skip this task
-      test: ({jira, pivotal}) => (jira || pivotal),
+      test: ({pivotal}) => (pivotal),
       message: ({hi, jira, pivotal}) => {
         const relevantRepo = repo[hi ? 'hi' : 'git'];
         const ticketSource = jira ? 'Jira' : 'Pivotal';
