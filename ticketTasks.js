@@ -194,8 +194,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks after approval/merge',
     },
     {
-      message: ({featureBranch, hi}) => `${hi && !featureBranch ? '[NOT DURING CODEFREEZE] ' : ''}`
-        + 'Merge PR ',
+      message: 'Merge PR',
     },
     {
       test: ({featureBranch}) => featureBranch,
