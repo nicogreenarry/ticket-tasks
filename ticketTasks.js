@@ -41,25 +41,12 @@ const main = bluebird.coroutine(function* (cli) {
 
     // POSTWORK
     {
-      message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
-    },
-    {
       test: ({feature, fix, git, hi}) => (feature || fix) && ((hi && hiStagingPreAcceptanceTesting) || git && gitHasStaging),
       message: 'Pre-acceptance testing on staging: Write a comment, "@REQUESTER, this is ready for pre-acceptance' +
         ' testing on staging; see PR_URL for the staging url. You can test it by STEPS_TO_TEST". Create a blocker' +
         ' labeling requester: "@REQUESTER pre-acceptance test ticket per comment". OR if it’s something that can’t ' +
         'be tested easily on staging, consider one of these comments: "@REQUESTER, this is ready for a pre-acceptance' +
         ' test. I’ll have to demo it for you on my machine - can you let me know when might be a good time?"',
-    },
-    {
-      message: ({fix, hi}) => {
-        const entities = hi ? 'people/companies/etc.' : 'users/contacts/stories/etc.';
-        return fix
-          ? 'Whom did this bug/issue/etc. affect? Even after fixing the issue, what do we need to do to address '
-          + 'those problems? Even in the case of proactive fixes, think about taking retroactive action on '
-          + `${entities} whom this change won’t automatically affect, but should.`
-          : `Take retroactive action on ${entities} whom this change won’t automatically affect, but should.`;
-      },
     },
     {
       test: ({feature, featureBranch, fix, git}) => (!git || hasGitTeam) && !featureBranch && (feature || fix),
@@ -79,8 +66,17 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
-      test: ({hi, jira, style}) => !style && hi && jira,
-      message: 'Mark ticket as "Ready to accept"? Skip if I know of more engineering work I need to do.',
+      message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
+    },
+    {
+      message: ({fix, hi}) => {
+        const entities = hi ? 'people/companies/etc.' : 'users/contacts/stories/etc.';
+        return fix
+          ? 'Whom did this bug/issue/etc. affect? Even after fixing the issue, what do we need to do to address '
+          + 'those problems? Even in the case of proactive fixes, think about taking retroactive action on '
+          + `${entities} whom this change won’t automatically affect, but should.`
+          : `Take retroactive action on ${entities} whom this change won’t automatically affect, but should.`;
+      },
     },
     {
       test: ({featureBranch}) => featureBranch,
@@ -221,6 +217,10 @@ const main = bluebird.coroutine(function* (cli) {
     {
       test: ({feature, featureBranch, fix}) => !featureBranch && (feature || fix),
       message: 'As an engineer, perform final acceptance testing on the deployed version of the code',
+    },
+    {
+      test: ({hi, jira, style}) => !style && hi && jira,
+      message: 'Mark ticket as "Ready to accept"? Skip if I know of more engineering work I need to do.',
     },
     {
       test: ({feature, featureBranch, fix, hi}) => !featureBranch && hi && (feature || fix),
