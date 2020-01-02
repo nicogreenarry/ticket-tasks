@@ -232,7 +232,7 @@ const main = bluebird.coroutine(function* (cli) {
     },
     {
       test: ({hi, style}) => hi && !style,
-      message: 'Record in CMD, MILO notes, as Retro/etc. sticky?',
+      message: 'Record in [CMD](https://todoist.com/app#task%2F631329605), MILO notes, as Retro/etc. sticky?',
     },
     {
       test: ({feature, fix, pivotal}) => (feature || fix) && pivotal,
