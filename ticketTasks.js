@@ -238,10 +238,6 @@ const main = bluebird.coroutine(function* (cli) {
       test: ({feature, fix, pivotal}) => (feature || fix) && pivotal,
       message: 'Once the final PR/branch is deployed, mark ticket Delivered',
     },
-    {
-      test: ({jira}) => jira,
-      message: 'Close the jira sub-ticket for this PR',
-    },
 
     // STYLE PR ONLY
     {
