@@ -26,39 +26,7 @@ const main = bluebird.coroutine(function* (cli) {
   const genericTasks = [];
 
   // Ticket tasks (pivotal or jira; not PR)
-  const ticketTasks = [
-    // PREWORK
-    {
-      test: ({ui}) => ui,
-      message: 'Create several versions of mockups for the thing I’m building',
-    },
-    {
-      test: ({ui}) => ui,
-      message: ({git}) => `Publish some mockups to appropriate channels: ticket, PR, slack${
-        git ? ', kickstarter, blog' : ''
-        }?`,
-    },
-
-    // POSTWORK
-    {
-      test: ({feature, fix, git, hi}) => (feature || fix) && ((hi && hiStagingPreAcceptanceTesting) || git && gitHasStaging),
-      message: 'Pre-acceptance testing on staging: Write a comment, "@REQUESTER, this is ready for pre-acceptance' +
-        ' testing on staging; see PR_URL for the staging url. You can test it by STEPS_TO_TEST". Create a blocker' +
-        ' labeling requester: "@REQUESTER pre-acceptance test ticket per comment". OR if it’s something that can’t ' +
-        'be tested easily on staging, consider one of these comments: "@REQUESTER, this is ready for a pre-acceptance' +
-        ' test. I’ll have to demo it for you on my machine - can you let me know when might be a good time?"',
-    },
-    {
-      test: ({feature, featureBranch, fix, git}) => (!git || hasGitTeam) && !featureBranch && (feature || fix),
-      message: 'Post-deploy Acceptance testing. Comment with testing procedures, and create blocker. Indicate whether' +
-        ' tester should Accept/Resolve ticket when they’re satisfied.',
-    },
-    {
-      test: ({fix}) => fix,
-      message: 'Think about (1) what improved design, resolved tech debt, etc. could have prevented this issue,' +
-        ' and (2) what improved design/debugging/error reporting/etc. would have made it faster to debug and solve'
-    }
-  ];
+  const ticketTasks = [];
 
   const prTasks = [
     {
