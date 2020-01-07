@@ -34,7 +34,7 @@ const main = bluebird.coroutine(function* (cli) {
       message: 'Tasks prior to approval',
     },
     {
-      message: 'Update docs based on this change? If so, post docs to #eng_learn after the PR exists.',
+      message: 'Update docs based on this change? If so, post docs to #eng_release and/or #eng_learn after the PR exists.',
     },
     {
       message: ({fix, hi}) => {
